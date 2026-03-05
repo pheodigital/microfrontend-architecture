@@ -1,0 +1,28 @@
+{
+  // Packages are two levels deep (packages/mini-store),
+  // so we go up two levels to find the base config.
+  "extends": "../../tsconfig.base.json",
+
+  "compilerOptions": {
+    // Unlike apps, packages DO emit output — they compile to "dist/".
+    // Apps (Next.js) handle their own compilation;
+    // packages need to produce compiled output for apps to consume.
+    "noEmit": false,
+
+    // Where to write the compiled JS and .d.ts type declaration files.
+    "outDir": "./dist",
+
+    // "declaration: true" — also generate .d.ts type declaration files.
+    // This is what gives consumers (host-app, remote-app) TypeScript
+    // autocompletion when they import from this package.
+    "declaration": true,
+
+    // Generate source maps so debuggers can trace back to original .ts files
+    // even when running compiled .js from dist/.
+    "sourceMap": true
+  },
+
+  // Only compile files inside src/
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules", "dist"]
+}

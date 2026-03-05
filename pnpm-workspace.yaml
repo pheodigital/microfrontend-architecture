@@ -1,0 +1,18 @@
+# pnpm-workspace.yaml
+#
+# This file is the single source of truth that tells pnpm:
+# "treat every folder inside apps/ and packages/ as an independent package."
+#
+# What this means in practice:
+#   - Each folder gets its own package.json, node_modules, and build output
+#   - pnpm links them together via symlinks in the root node_modules
+#   - You can reference them in other packages using "workspace:*" as the version
+#
+# Example: host-app's package.json can declare:
+#   "@todoflow/mini-store": "workspace:*"
+# ...and pnpm resolves that to the local /packages/mini-store folder.
+# No npm publishing needed. No version bumping. It just works.
+
+packages:
+  - 'apps/*'       # apps/host-app, apps/remote-app
+  - 'packages/*'   # packages/mini-store, packages/event-bus

@@ -1,0 +1,115 @@
+{
+  // tsconfig.base.json — Shared TypeScript compiler settings for the whole monorepo.
+  //
+  // Every app and package will have its OWN tsconfig.json that starts with:
+  //   { "extends": "../../tsconfig.base.json", ... }
+  //
+  // This means you define compiler rules ONCE here, and every package
+  // automatically inherits them. If you want to tighten a rule project-wide,
+  // you change it in one place.
+
+  "compilerOptions": {
+
+    // ------------------------------------------------------------------
+    // OUTPUT CONTROL
+    // ------------------------------------------------------------------
+
+    // "ES2022" — The JavaScript version we compile DOWN to.
+    // Most modern browsers and Node.js 20+ support ES2022 natively,
+    // so we don't need to strip out modern syntax like optional chaining.
+    "target": "ES2022",
+
+    // "lib" — Which built-in type definitions to include.
+    // "dom"          → types for browser APIs (window, document, fetch...)
+    // "dom.iterable" → types for iterating DOM collections (NodeList, etc.)
+    // "esnext"       → types for the latest JS features (Promise, Map, etc.)
+    "lib": ["dom", "dom.iterable", "esnext"],
+
+    // "noEmit: true" — TypeScript will TYPE-CHECK but NOT write any files.
+    // In this project, Next.js (via Webpack) handles the actual compilation.
+    // TypeScript's job here is purely to catch type errors, not to compile.
+    "noEmit": true,
+
+    // ------------------------------------------------------------------
+    // MODULE SYSTEM
+    // ------------------------------------------------------------------
+
+    // "esnext" — Use ES module syntax (import/export) in the output.
+    // This is what browsers and modern Node.js understand natively.
+    "module": "esnext",
+
+    // "bundler" — Tells TypeScript: "a bundler (Webpack/Turbopack) handles
+    // module resolution, not Node.js classic rules."
+    // This allows:
+    //   import foo from './foo'         (no extension needed)
+    //   import data from './data.json'  (json imports)
+    //   import styles from './app.css'  (css imports)
+    "moduleResolution": "bundler",
+
+    // Allows: import fs from 'fs'  (instead of  import * as fs from 'fs')
+    // Needed because many npm packages still use CommonJS (module.exports),
+    // and this flag lets you import them with clean ES module syntax.
+    "esModuleInterop": true,
+
+    // Allows: import config from './config.json'
+    // Without this, TypeScript refuses to import JSON files.
+    "resolveJsonModule": true,
+
+    // ------------------------------------------------------------------
+    // REACT / JSX
+    // ------------------------------------------------------------------
+
+    // "preserve" — Don't touch JSX syntax. Leave <Component /> as-is.
+    // Next.js's bundler (Webpack/Turbopack) handles JSX transformation.
+    // If we set this to "react-jsx", TypeScript would transform JSX itself,
+    // which would conflict with Next.js's transformation.
+    "jsx": "preserve",
+
+    // ------------------------------------------------------------------
+    // STRICTNESS
+    // ------------------------------------------------------------------
+
+    // "strict: true" — Enables a bundle of strict checks all at once:
+    //   - noImplicitAny          → you must declare types; no silent "any"
+    //   - strictNullChecks       → null and undefined are NOT valid everywhere
+    //   - strictFunctionTypes    → stricter checking on function parameter types
+    //   - strictPropertyInitialization → class properties must be initialised
+    //   ...and more.
+    //
+    // This will catch real bugs. Don't turn it off.
+    "strict": true,
+
+    // Each file must be compilable on its own without needing other files.
+    // This is required for tools like esbuild and SWC (which Next.js uses)
+    // that compile files one-at-a-time rather than as a whole program.
+    //
+    // The main thing it prevents: "const enum" and namespace merging,
+    // which require whole-program analysis. Use regular "enum" instead.
+    "isolatedModules": true,
+
+    // ------------------------------------------------------------------
+    // PERFORMANCE
+    // ------------------------------------------------------------------
+
+    // Save compilation state to disk between runs.
+    // Next type-check run reuses this and only re-checks changed files.
+    // Makes "tsc --noEmit" much faster in large projects.
+    "incremental": true,
+
+    // ------------------------------------------------------------------
+    // PATHS (added by each app's own tsconfig.json as needed)
+    // ------------------------------------------------------------------
+    // Individual apps will add "paths" to map short import aliases:
+    //   "@/components/*" → "./src/components/*"
+    // We don't define paths here because the root path differs per app.
+
+    // Allows importing '.js' files from TypeScript source.
+    // Needed because some packages ship pre-compiled JS with .js extensions.
+    "allowJs": true,
+
+    // Skip type-checking of declaration files in node_modules.
+    // Without this, tsc checks every .d.ts in every library you use —
+    // that's thousands of files and takes forever.
+    "skipLibCheck": true
+  }
+}

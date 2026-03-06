@@ -20,6 +20,5 @@
 //   import { EventBus, type TodoEvent } from '@todoflow/event-bus'
 //   const unsub = EventBus.getInstance().subscribe((event: TodoEvent) => { ... })
 // =============================================================================
-
 export { EventBus } from "./eventbus";
-export type { TodoEvent } from "./events";
+//# sourceMappingURL=index.js.map

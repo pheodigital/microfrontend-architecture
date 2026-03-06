@@ -11,6 +11,7 @@
 
     // Where to write the compiled JS and .d.ts type declaration files.
     "outDir": "./dist",
+    "rootDir": "./src",
 
     // "declaration: true" — also generate .d.ts type declaration files.
     // This is what gives consumers (host-app, remote-app) TypeScript

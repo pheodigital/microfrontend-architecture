@@ -20,18 +20,14 @@
 //
 // If you ever reorganise the internal files, consumers don't change.
 // =============================================================================
-
 // The observable primitive — consumers rarely need this directly,
 // but it's exported so they can create their OWN stores if needed.
 export { createStore } from "./createStore";
-export type { Store } from "./createStore";
-
 // The React hook — this is what components use to read store state.
 // Import: import { useStore } from '@todoflow/mini-store'
 export { useStore } from "./usestore";
-
 // The actual todo store instance + all mutations.
 // Import: import { todoStore, todoActions } from '@todoflow/mini-store'
 // Import: import type { Todo, TodoState }   from '@todoflow/mini-store'
 export { todoStore, todoActions } from "./todoStore";
-export type { Todo, TodoState } from "./todoStore";
+//# sourceMappingURL=index.js.map

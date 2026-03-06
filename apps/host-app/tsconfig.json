@@ -1,36 +1,17 @@
 {
-  // Inherit ALL compiler settings from the shared base config.
-  // This keeps every app/package in sync with the same rules.
-  // Only override what is genuinely different for THIS app.
   "extends": "../../tsconfig.base.json",
-
   "compilerOptions": {
-    // Map "@/*" to "./*" so you can write:
-    //   import { Button } from "@/components/Button"
-    // instead of:
-    //   import { Button } from "../../components/Button"
-    //
-    // The "." means "relative to this tsconfig.json's directory."
+    "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
     "paths": {
       "@/*": ["./*"]
     },
-
-    // Where TypeScript looks for source files in THIS app.
-    // "." means this app's root folder.
-    "baseUrl": "."
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-
-  // Which files/folders TypeScript should include when type-checking.
-  // Next.js generates "next-env.d.ts" at the root — include it.
-  // "**/*.ts" and "**/*.tsx" catch all TypeScript source files.
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"   // Next.js generates types here for App Router
-  ],
-
-  // Folders TypeScript should completely ignore.
-  // node_modules is huge — type-checking it is unnecessary (skipLibCheck handles that).
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

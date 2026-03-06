@@ -10,6 +10,19 @@
     "type-check": "tsc --noEmit",
     "clean": "rm -rf .next dist"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@todoflow/mini-store": "workspace:*",
+    "@todoflow/event-bus": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^19.0.0",
+    "typescript": "^5.4.0",
+    "tailwindcss": "^4.0.0",
+    "autoprefixer": "^10.0.0",
+    "postcss": "^8.0.0"
+  }
 }

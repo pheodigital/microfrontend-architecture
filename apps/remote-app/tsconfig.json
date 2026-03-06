@@ -1,20 +1,18 @@
 {
   // Same pattern as host-app — inherit from base, add app-specific overrides.
   "extends": "../../tsconfig.base.json",
-
   "compilerOptions": {
     "paths": {
       "@/*": ["./*"]
     },
-    "baseUrl": "."
+    "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
